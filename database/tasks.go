@@ -1,25 +1,39 @@
 package database
 
 import (
-	"time"
-
+	"go-scheduler/utils"
 	bolt "go.etcd.io/bbolt"
 )
 
-var defaultBucket = []byte("default")
-
-var DbConn *bolt.DB
-
-type Task struct {
-	Key   int
-	Value string
+func AddTask(task string) (int, error) {
+	var id int
+	err := DbConn.Update(func(tx *bolt.Tx) error {
+		bkt := tx.Bucket(defaultBucket)
+		id64, _ := bkt.NextSequence()
+		id = int(id64)
+		key := utils.ConvertIntToBytes(id)
+		return bkt.Put(key, []byte(task))
+	})
+	if err != nil {
+		return -1, err
+	}
+	return id, nil
 }
 
-func Init(DbPath string) error {
-	var err error
-	DbConn, err = bolt.Open(DbPath, 0600, &bolt.Options{Timeout: 3 * time.Second})
+func GetAllTasks() ([]Task, error) {
+	var tasks []Task
+	err := DbConn.View(func(tx *bolt.Tx) error {
+		bkt := tx.Bucket(defaultBucket)
+		cur := bkt.Cursor()
+		for k, v := cur.First(); k != nil; k, v = cur.Next() {
+			tasks = append(tasks, Task{
+				Key:   utils.ConvertBytesToInt(k),
+				Value: string(v),
+			})
+		}
+	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return CreateBucket(defaultBucket)
+	return tasks, nil
 }
