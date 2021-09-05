@@ -16,8 +16,10 @@ var listCmd = &cobra.Command{
 
 func ListCmdImplement(cmd *cobra.Command, args []string) {
 	fmt.Println("list called")
-	//group, _ := cmd.Flags().GetString("group")
-	tasks, err := database.GetAllTasks()
+	group, _ := cmd.Flags().GetString("group")
+	//fmt.Println(group)
+	tasks, err := database.GetAllTasks([]byte(group))
+	//fmt.Println("tasks Retreived")
 	if err != nil {
 		fmt.Println("Some Error Occured ", err.Error())
 		os.Exit(1)

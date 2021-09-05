@@ -15,7 +15,7 @@ var contextCmd = &cobra.Command{
 func ContextCmdImplement(cmd *cobra.Command, args []string) {
 	for _, arg := range args {
 		database.CreateBucket([]byte(arg))
-		fmt.Printf("NameSpace %s added", arg)
+		fmt.Printf("NameSpace %s added\n", arg)
 	}
 }
 

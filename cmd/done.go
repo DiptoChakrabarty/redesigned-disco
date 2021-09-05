@@ -16,7 +16,7 @@ var doneCmd = &cobra.Command{
 
 func DoneCmdImplement(cmd *cobra.Command, args []string) {
 	var ids []int
-	//group, _ := cmd.Flags().GetString("group")
+	group, _ := cmd.Flags().GetString("group")
 	for _, arg := range args {
 		id, err := strconv.Atoi(arg)
 		if err != nil {
@@ -25,7 +25,7 @@ func DoneCmdImplement(cmd *cobra.Command, args []string) {
 			ids = append(ids, id)
 		}
 	}
-	tasks, err := database.GetAllTasks()
+	tasks, err := database.GetAllTasks([]byte(group))
 	if err != nil {
 		fmt.Println("Some Error Occured ", err.Error())
 		os.Exit(1)
@@ -37,7 +37,7 @@ func DoneCmdImplement(cmd *cobra.Command, args []string) {
 			continue
 		}
 		task := tasks[id-1]
-		err := database.DeleteTasks(task.Key)
+		err := database.DeleteTasks(task.Key, []byte(group))
 		if err != nil {
 			fmt.Printf("Falied to complete task \"%d Error %s\n", id, err)
 		} else {
