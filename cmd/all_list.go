@@ -3,6 +3,8 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
+	"go-scheduler/database"
+	"os"
 )
 
 var listall_Cmd = &cobra.Command{
@@ -12,7 +14,11 @@ var listall_Cmd = &cobra.Command{
 }
 
 func ListAllTasks(cmd *cobra.Command, args []string) {
-	fmt.Println("list all commands called")
+	err := database.GetAllTasks()
+	if err != nil {
+		fmt.Println("Some Error Occured ", err.Error())
+		os.Exit(1)
+	}
 }
 
 func init() {
