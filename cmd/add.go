@@ -17,6 +17,7 @@ var addCmd = &cobra.Command{
 
 func AddCmdImplement(cmd *cobra.Command, args []string) {
 	taskGiven := strings.Join(args, " ")
+	group, _ := cmd.Flags().GetString("group")
 
 	_, err := database.AddTask(taskGiven)
 	if err != nil {
@@ -28,4 +29,5 @@ func AddCmdImplement(cmd *cobra.Command, args []string) {
 
 func init() {
 	RootCmd.AddCommand(addCmd)
+	addCmd.PersistentFlags().StringP("group", "g", "default", "The group which you would like to know")
 }

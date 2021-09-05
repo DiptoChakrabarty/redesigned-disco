@@ -2,6 +2,8 @@ package utils
 
 import (
 	"encoding/binary"
+	"fmt"
+	"go-scheduler/database"
 )
 
 func ConvertIntToBytes(n int) []byte {
@@ -12,4 +14,15 @@ func ConvertIntToBytes(n int) []byte {
 
 func ConvertBytesToInt(b []byte) int {
 	return int(binary.BigEndian.Uint64(b))
+}
+
+func ListAllTasksOfNamespace(tasks []database.Task) {
+	if len(tasks) == 0 {
+		fmt.Println("No tasks left to complete in default task list")
+		return
+	}
+	fmt.Println("Your Current Tasks Are : ")
+	for i, tk := range tasks {
+		fmt.Printf("%d : %s\n", i+1, tk.Value)
+	}
 }

@@ -16,6 +16,7 @@ var doneCmd = &cobra.Command{
 
 func DoneCmdImplement(cmd *cobra.Command, args []string) {
 	var ids []int
+	//group, _ := cmd.Flags().GetString("group")
 	for _, arg := range args {
 		id, err := strconv.Atoi(arg)
 		if err != nil {
@@ -48,4 +49,5 @@ func DoneCmdImplement(cmd *cobra.Command, args []string) {
 
 func init() {
 	RootCmd.AddCommand(doneCmd)
+	doneCmd.PersistentFlags().StringP("group", "g", "default", "The group which you would like to know")
 }
