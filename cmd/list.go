@@ -8,9 +8,11 @@ import (
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "Lists All the tasks",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("list called")
-	},
+	Run:   ListCmdImplement,
+}
+
+func ListCmdImplement(cmd *cobra.Command, args []string) {
+	fmt.Println("list called")
 }
 
 func init() {
