@@ -8,7 +8,7 @@ import (
 
 var contextCmd = &cobra.Command{
 	Use:   "context",
-	Short: "Lists All the tasks",
+	Short: "Add a context for the groups",
 	Run:   ContextCmdImplement,
 }
 

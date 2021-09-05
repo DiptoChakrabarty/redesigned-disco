@@ -1,6 +1,7 @@
 package database
 
 import (
+	"go-scheduler/types"
 	"go-scheduler/utils"
 	bolt "go.etcd.io/bbolt"
 )
@@ -20,13 +21,13 @@ func AddTask(task string) (int, error) {
 	return id, nil
 }
 
-func GetAllTasks() ([]Task, error) {
-	var tasks []Task
+func GetAllTasks() ([]types.Task, error) {
+	var tasks []types.Task
 	err := DbConn.View(func(tx *bolt.Tx) error {
 		bkt := tx.Bucket(defaultBucket)
 		cur := bkt.Cursor()
 		for k, v := cur.First(); k != nil; k, v = cur.Next() {
-			tasks = append(tasks, Task{
+			tasks = append(tasks, types.Task{
 				Key:   utils.ConvertBytesToInt(k),
 				Value: string(v),
 			})

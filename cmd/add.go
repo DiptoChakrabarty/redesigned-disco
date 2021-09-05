@@ -17,7 +17,7 @@ var addCmd = &cobra.Command{
 
 func AddCmdImplement(cmd *cobra.Command, args []string) {
 	taskGiven := strings.Join(args, " ")
-	group, _ := cmd.Flags().GetString("group")
+	// group, _ := cmd.Flags().GetString("group")
 
 	_, err := database.AddTask(taskGiven)
 	if err != nil {
