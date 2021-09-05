@@ -1,8 +1,10 @@
 package database
 
 import (
+	"fmt"
 	"go-scheduler/types"
 	"go-scheduler/utils"
+
 	bolt "go.etcd.io/bbolt"
 )
 
@@ -21,7 +23,7 @@ func AddTask(task string, group []byte) (int, error) {
 	return id, nil
 }
 
-func GetAllTasks(group []byte) ([]types.Task, error) {
+func GetAllTasksOfGroup(group []byte) ([]types.Task, error) {
 	var tasks []types.Task
 	err := DbConn.View(func(tx *bolt.Tx) error {
 		bkt := tx.Bucket(group)
@@ -38,6 +40,23 @@ func GetAllTasks(group []byte) ([]types.Task, error) {
 		return nil, err
 	}
 	return tasks, nil
+}
+
+func GetAllTasks() error {
+	buckets, err := GetAllBuckets()
+	if err != nil {
+		return err
+	}
+
+	for _, bucketName := range buckets {
+		tasks, err := GetAllTasksOfGroup([]byte(bucketName))
+		if err != nil {
+			return err
+		}
+		fmt.Printf("The Tasks Of Group %s are\n", bucketName)
+		utils.ListAllTasksOfNamespace(tasks)
+	}
+	return nil
 }
 
 func DeleteTasks(key int, group []byte) error {

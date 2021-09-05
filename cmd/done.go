@@ -25,7 +25,7 @@ func DoneCmdImplement(cmd *cobra.Command, args []string) {
 			ids = append(ids, id)
 		}
 	}
-	tasks, err := database.GetAllTasks([]byte(group))
+	tasks, err := database.GetAllTasksOfGroup([]byte(group))
 	if err != nil {
 		fmt.Println("Some Error Occured ", err.Error())
 		os.Exit(1)
