@@ -2,16 +2,22 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/spf13/cobra"
 	"go-scheduler/database"
 	"os"
-
-	"github.com/spf13/cobra"
+	"strings"
 )
 
+var r string
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "Lists All the tasks",
 	Run:   ListCmdImplement,
+}
+
+var checkCmd = &cobra.Command{
+	Use: "check",
+	Run: Check,
 }
 
 func ListCmdImplement(cmd *cobra.Command, args []string) {
@@ -31,6 +37,15 @@ func ListCmdImplement(cmd *cobra.Command, args []string) {
 	}
 }
 
+func Check(cmd *cobra.Command, args []string) {
+	b, _ := cmd.Flags().GetString("block")
+	fmt.Println("The check command called")
+	taskGiven := strings.Join(args, " ")
+	fmt.Println(taskGiven, b)
+}
+
 func init() {
 	RootCmd.AddCommand(listCmd)
+	RootCmd.AddCommand(checkCmd)
+	checkCmd.PersistentFlags().StringP("block", "b", "normal", "Just checking default")
 }
