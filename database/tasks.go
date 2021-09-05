@@ -31,9 +31,21 @@ func GetAllTasks() ([]Task, error) {
 				Value: string(v),
 			})
 		}
+		return nil
 	})
 	if err != nil {
 		return nil, err
 	}
 	return tasks, nil
+}
+
+func DeleteTasks(key int) error {
+	err := DbConn.Update(func(tx *bolt.Tx) error {
+		bkt := tx.Bucket(defaultBucket)
+		return bkt.Delete(utils.ConvertIntToBytes(key))
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
