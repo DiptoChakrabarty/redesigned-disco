@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"go-scheduler/types"
 	"go-scheduler/utils"
-
 	bolt "go.etcd.io/bbolt"
 )
 
