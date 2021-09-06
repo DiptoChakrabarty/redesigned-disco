@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"go-scheduler/types"
 	"time"
@@ -28,7 +29,16 @@ func ListAllTasksOfNamespace(tasks []types.Task) {
 	}
 }
 
-func ComputeTime() time.Time {
-	timein := time.Now().Add(time.Hour*5 + time.Minute*30 + time.Second*1)
-	return timein
+func ComputeTime(d int, h int, m int) (time.Time, error) {
+	var current = time.Now()
+	if d < current.Day() {
+		return current, errors.New("day given before present day")
+	} else if d == current.Day() {
+		if h < current.Hour() {
+			return current, errors.New("hour given before present hour")
+		}
+	}
+
+	timein := time.Date(current.Year(), current.Month(), d, h, m, 0, 0, time.UTC)
+	return timein, nil
 }

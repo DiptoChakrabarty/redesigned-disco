@@ -13,6 +13,19 @@ var listCmd = &cobra.Command{
 	Short: "Lists All the tasks",
 	Run:   ListCmdImplement,
 }
+var listall_Cmd = &cobra.Command{
+	Use:   "all",
+	Short: "Lists All of the total tasks",
+	Run:   ListAllTasks,
+}
+
+func ListAllTasks(cmd *cobra.Command, args []string) {
+	err := database.GetAllTasks()
+	if err != nil {
+		fmt.Println("Some Error Occured ", err.Error())
+		os.Exit(1)
+	}
+}
 
 func ListCmdImplement(cmd *cobra.Command, args []string) {
 	group, _ := cmd.Flags().GetString("group")
@@ -29,4 +42,5 @@ func ListCmdImplement(cmd *cobra.Command, args []string) {
 func init() {
 	RootCmd.AddCommand(listCmd)
 	listCmd.PersistentFlags().StringP("group", "g", "default", "The group which you would like to know")
+	listCmd.AddCommand(listall_Cmd)
 }
