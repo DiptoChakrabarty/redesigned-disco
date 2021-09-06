@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/spf13/cobra/doc"
 	"go-scheduler/cmd"
 	"go-scheduler/database"
 	"log"
@@ -20,4 +21,9 @@ func main() {
 		log.Fatal(err)
 	}
 	cmd.RootCmd.Execute()
+
+	err = doc.GenMarkdownTree(cmd.RootCmd, "./docs")
+	if err != nil {
+		log.Fatal(err)
+	}
 }

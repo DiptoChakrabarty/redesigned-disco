@@ -29,5 +29,4 @@ func ListCmdImplement(cmd *cobra.Command, args []string) {
 func init() {
 	RootCmd.AddCommand(listCmd)
 	listCmd.PersistentFlags().StringP("group", "g", "default", "The group which you would like to know")
-	//listCmd.PersistentFlags().StringP("all", "a", "no", "To check all tasks of groups options yes no")
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"go-scheduler/types"
+	"time"
 )
 
 func ConvertIntToBytes(n int) []byte {
@@ -25,4 +26,9 @@ func ListAllTasksOfNamespace(tasks []types.Task) {
 	for i, tk := range tasks {
 		fmt.Printf("%d : %s\n", i+1, tk.Value)
 	}
+}
+
+func ComputeTime() time.Time {
+	timein := time.Now().Add(time.Hour*5 + time.Minute*30 + time.Second*1)
+	return timein
 }
