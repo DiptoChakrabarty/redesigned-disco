@@ -27,7 +27,7 @@ func CreateBucket(bucketName []byte) error {
 	})
 }
 
-func DeleteBucket(bucketName []byte) error {
+func DeleteABucket(bucketName []byte) error {
 	err := DeleteBucketFromBucketList(bucketName)
 
 	if err != nil {
