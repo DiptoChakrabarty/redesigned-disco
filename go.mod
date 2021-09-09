@@ -1,4 +1,4 @@
-module go-scheduler
+module github.com/DiptoChakrabart/task-manager
 
 go 1.15
 

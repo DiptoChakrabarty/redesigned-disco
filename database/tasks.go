@@ -2,8 +2,8 @@ package database
 
 import (
 	"fmt"
-	"go-scheduler/types"
-	"go-scheduler/utils"
+	"github.com/DiptoChakrabart/task-manager/types"
+	"github.com/DiptoChakrabart/task-manager/utils"
 	bolt "go.etcd.io/bbolt"
 )
 

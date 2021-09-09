@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/DiptoChakrabart/task-manager/database"
 	"github.com/spf13/cobra"
-	"go-scheduler/database"
 	"os"
 	"strings"
 )

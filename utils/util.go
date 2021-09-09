@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"go-scheduler/types"
+	"github.com/DiptoChakrabart/task-manager/types"
 	"time"
 )
 

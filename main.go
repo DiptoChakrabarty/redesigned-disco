@@ -1,9 +1,8 @@
 package main
 
 import (
-	//"github.com/spf13/cobra/doc"
-	"go-scheduler/cmd"
-	"go-scheduler/database"
+	"github.com/DiptoChakrabart/task-manager/cmd"
+	"github.com/DiptoChakrabart/task-manager/database"
 	"log"
 	"os"
 	"path/filepath"

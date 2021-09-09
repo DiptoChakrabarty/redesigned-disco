@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	//"go-scheduler/utils"
+	//"github.com/DiptoChakrabart/task-manager/utils"
 	bolt "go.etcd.io/bbolt"
 )
 
