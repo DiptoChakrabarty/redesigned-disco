@@ -27,6 +27,22 @@ func CreateBucket(bucketName []byte) error {
 	})
 }
 
+func DeleteBucket(bucketName []byte) error {
+	err := DeleteBucketFromBucketList(bucketName)
+
+	if err != nil {
+		return err
+	}
+
+	return DbConn.Update(func(tx *bolt.Tx) error {
+		err := tx.DeleteBucket(bucketName)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+}
+
 func CreateBucketListBucket() error {
 	return DbConn.Update(func(tx *bolt.Tx) error {
 		_, err := tx.CreateBucketIfNotExists(bucketlist)
@@ -46,6 +62,17 @@ func AddBucketToBucketList(bucketName []byte) error {
 		bkt := tx.Bucket(bucketlist)
 		return bkt.Put(bucketName, []byte{1})
 	})
+}
+
+func DeleteBucketFromBucketList(bucketName []byte) error {
+	err := DbConn.Update(func(tx *bolt.Tx) error {
+		bkt := tx.Bucket(bucketlist)
+		return bkt.Delete(bucketName)
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func GetAllBuckets() ([]string, error) {

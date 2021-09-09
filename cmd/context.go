@@ -19,6 +19,13 @@ func ContextCmdImplement(cmd *cobra.Command, args []string) {
 	}
 }
 
+func AddContext(cmd *cobra.Command, args []string) {
+	for _, arg := range args {
+		database.CreateBucket([]byte(arg))
+		fmt.Printf("NameSpace %s added\n", arg)
+	}
+}
+
 func init() {
 	RootCmd.AddCommand(contextCmd)
 }
